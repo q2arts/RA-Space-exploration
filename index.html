@@ -1,24 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Travels</title>
-    <meta name="description" content="">
-    <link rel="stylesheet" href="css/app.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Solar System & AI Space Chat</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="container">
-        <div class="destination-container">
-            <div class="destination" id="belize">
-                <h2>Belize</h2>
-            </div>
-
-            <div class="destination" id="barcelona">
-                <h2>Barcelona</h2>
-            </div>
-        </div>
+    <div id="info">Click planets for info | Scroll to zoom | Drag to rotate</div>
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <input type="password" id="api-key" placeholder="🔑 Enter API Key">
+        <input type="text" id="user-input" placeholder="🚀 Ask about space...">
+        <button onclick="sendChat()">Send Message</button>
+        <div id="loading">🔭 Scanning the cosmos...</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
