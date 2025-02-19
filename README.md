@@ -1,3 +1,2 @@
-# Travel Destinations
-
-A simple app to keep track of destinations I'd like to visit.
+### RA webApp
+## An AI chatbot designed for researching skymaps.
