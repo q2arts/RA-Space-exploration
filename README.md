@@ -1,5 +1,5 @@
 # RA Space exploration:
-![RA Logo](https://github.com/aimtyaem/RA-Space-exploration/blob/09844b1803bbf9b1e4ba248788e5956e4675dfcc/img/Untitled%20design.jpg)
+![RA Logo](https://github.com/aimtyaem/RA-Space-exploration/blob/be035acd96a82c3240a647327a8658106a83f001/img/1000074327-removebg-preview.png)
  **AI-Powered VR/AR Training and Simulation System for Space Tourists**
 
 ## About the Project
