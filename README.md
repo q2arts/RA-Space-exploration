@@ -1,5 +1,5 @@
-# RA Space exploration 
-# AI-Powered VR/AR Training and Simulation System for Space Tourists
+# RA Space exploration:
+ **AI-Powered VR/AR Training and Simulation System for Space Tourists**
 
 ## About the Project
 
