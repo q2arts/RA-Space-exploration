@@ -37,7 +37,3 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Contact
 
 For any questions or inquiries, please contact the project maintainer at [aimtyaem](https://github.com/aimtyaem).
-
-```
-
-Feel free to modify the sections as needed to better fit your project's specifics.
