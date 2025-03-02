@@ -178,6 +178,11 @@
     let scene, camera, renderer, controls; // Three.js scene elements
     const planets = [];                      // Array to hold planet objects
 
+    // **========  Unity CCD IDs (UPDATED) ========**
+    const projectId = "8731fc3e-5836-463a-b4e9-be7d8ce5082d";
+    const environmentId = "9d47ebbe-1eab-4823-92a2-1ea1a92bb0e9";
+    const bucketId_2 = "6b6cc494-7a21-4c57-b0f7-4bc6f1c4490d"; // Bucket ID from inner URL (path)
+    const baseURL = `https://${projectId}.client-api.unity3dusercontent.com/client_api/v1`; // Updated baseURL with projectId
 
     // =============================================
     //  Initialization Functions
@@ -285,7 +290,7 @@
 
 
     // =============================================
-    //  AI Chat Functionality (Now Data Fetching)
+    //  AI Chat Functionality (Now Data Fetching from Unity CCD)
     // =============================================
     async function sendChat() {
       const userInput = document.getElementById('user-input').value.trim();
@@ -301,8 +306,11 @@
       document.getElementById('user-input').value = '';
 
       try {
-        const baseURL = "YOUR_BASE_URL"; // **REPLACE WITH YOUR BASE URL**
-        const endpoint = `${baseURL}/environments/production/buckets/your-bucket-id/entries`; // **REPLACE 'your-bucket-id'**
+        const path2 = `environments/production/buckets/${bucketId_2}/release_by_badge/latest/entry_by_path/content/`;
+
+        // **Example endpoint fetching from the *second* bucket (bucketId_2), assuming you want the content at the root path ("/"):**
+        const endpoint = `${baseURL}/${path2}?path=`; // Appending empty path for now, adjust if needed.
+
 
         const response = await fetch(endpoint, {
             method: 'GET',
@@ -313,7 +321,7 @@
 
         const data = await response.json();
         // **Process CCD response here. The following is placeholder:**
-        const formattedAnswer = `<pre>CCD Data Response:\n${JSON.stringify(data, null, 2)}</pre>`; // Example formatting
+        const formattedAnswer = `<pre>Unity CCD Data Response:\n${JSON.stringify(data, null, 2)}</pre>`; // Example formatting
         chatMessages.innerHTML += `
             <div class="chat-message">
                 🤖 <b>Data Response:</b> ${formattedAnswer}
