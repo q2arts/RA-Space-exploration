@@ -2,121 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Immersive AI Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System</title>
   <style>
-    body { 
-        margin: 0; 
-        overflow: hidden; 
-        background: #000; 
-    }
-    #info { 
-        position: absolute; 
-        top: 10px; 
-        left: 10px; 
-        color: #fff; 
-        font-family: Arial, sans-serif;
-        z-index: 100;
-        text-shadow: 0 0 5px rgba(255,255,255,0.5);
-    }
-    #chat-container {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 320px;
-        background: rgba(0, 0, 0, 0.85);
-        color: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255,255,255,0.1);
-    }
+    body { margin: 0; overflow: hidden; }
     #chat-messages {
-        max-height: 400px;
-        overflow-y: auto;
-        margin-bottom: 15px;
-        padding-right: 10px;
-    }
-    .chat-message { 
-        margin: 10px 0;
-        padding: 8px 12px;
-        border-radius: 6px;
-        background: rgba(255,255,255,0.05);
-        animation: fadeIn 0.3s ease-in;
-    }
-    .system-message {
-        color: #00ff88;
-        background: transparent;
-        border: 1px solid rgba(0,255,136,0.2);
-    }
-    pre {
-        background: #1a1a1a;
-        color: #00ff88;
-        padding: 12px;
-        border-radius: 6px;
-        overflow-x: auto;
-        font-family: 'Courier New', monospace;
-        margin: 8px 0;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    #loading {
-        display: none;
-        color: #ffd700;
-        padding: 8px;
-        text-align: center;
-    }
-    input, button {
-        width: 100%;
-        margin: 8px 0;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-    input {
-        background: rgba(255,255,255,0.1);
-        color: #fff;
-    }
-    input:focus {
-        outline: 2px solid #007bff;
-    }
-    button {
-        background: #007bff;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    button:hover {
-        background: #0056b3;
-        transform: translateY(-1px);
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      max-width: 300px;
+      font-family: Arial, sans-serif;
     }
   </style>
 </head>
 <body>
-  <div class="separator" style="clear: both; text-align: center;">
-    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit4ny4cCANRL-X3YgAkgEfjHEbILWN9Lj46jo1JGBJFPlaDgzBisg8UFhPPrGQ0aWdwd7gKf-g4kENiELCF6O3FTvu5gqfkHUxf470myjSIEY54SogGNRcECz_nUtOwb[...]
-      <img alt="RA" border="0" data-original-height="1024" data-original-width="1024" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEit4ny4cCANRL-X3YgAkgEfjHEbILWN9Lj46jo[...]
-    </a>
-  </div>
-  <br>
-
-  <div id="info">Click planets for info | Scroll to zoom | Drag to rotate</div>
-
-  <div id="chat-container">
-    <div id="chat-messages"></div>
-    <input id="api-key" placeholder="🔑  API Key (No longer used)" type="password" disabled />
-    <input id="user-input" placeholder="🚀 Ask about space..." type="text" />
-    <button onclick="sendChat()">Send Message</button>
-    <div id="loading">🔭 Scanning the cosmos...</div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-
+  <div id="chat-messages"></div>
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r146/three.min.js"></script>
+  <!-- OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r146/controls/OrbitControls.js"></script>
   <script>
     // =============================================
     //  Constants and Variables
@@ -136,23 +44,16 @@
     let scene, camera, renderer, controls; // Three.js scene elements
     const planets = [];                      // Array to hold planet objects
 
-    // **========  Unity CCD IDs (UPDATED) ========**
-    const projectId = "8731fc3e-5836-463a-b4e9-be7d8ce5082d";
-    const environmentId = "9d47ebbe-1eab-4823-92a2-1ea1a92bb0e9";
-    const bucketId_2 = "6b6cc494-7a21-4c57-b0f7-4bc6f1c4490d"; // Bucket ID from inner URL (path)
-    const baseURL = `https://${projectId}.client-api.unity3dusercontent.com/client_api/v1`; // Updated baseURL with projectId
-
     // =============================================
     //  Initialization Functions
     // =============================================
-
     function initSolarSystem() {
       setupThreeJS();
       createSun();
       createPlanets();
       setupCameraAndControls();
       addPlanetClickHandler(); // Enable planet click interactions
-      animate();              // Start the animation loop
+      animate();               // Start the animation loop
     }
 
     function setupThreeJS() {
@@ -192,7 +93,7 @@
       camera.position.z = 50; // Initial camera distance
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;      // Enable smooth damping
-      controls.dampingFactor = 0.05;     // Damping factor for smooth rotation
+      controls.dampingFactor = 0.05;        // Damping factor for smooth rotation
     }
 
     function addPlanetClickHandler() {
@@ -210,7 +111,6 @@
         if (intersects.length > 0) { // Check if any planet is intersected
           const clickedObject = intersects[0].object;
           const planet = planets.find(p => p.mesh === clickedObject);
-
           if (planet) {
             displayPlanetInfo(planet);
           }
@@ -229,7 +129,6 @@
       chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
     }
 
-
     // =============================================
     //  Animation Loop
     // =============================================
@@ -239,81 +138,4 @@
       planets.forEach(planet => {
         planet.angle += PLANET_ORBIT_SPEED; // Increment planet angle
         planet.mesh.position.x = Math.cos(planet.angle) * planet.distance;
-        planet.mesh.position.z = Math.sin(planet.angle) * planet.distance;
-      });
-
-      controls.update(); // Update OrbitControls
-      renderer.render(scene, camera);
-    }
-
-
-    // =============================================
-    //  AI Chat Functionality (Now Data Fetching from Unity CCD)
-    // =============================================
-    async function sendChat() {
-      const userInput = document.getElementById('user-input').value.trim();
-      if (!userInput) return alert('🚀 Please enter a space-related question');
-
-      const chatMessages = document.getElementById('chat-messages');
-      const loading = document.getElementById('loading');
-
-      // Add user message
-      chatMessages.innerHTML += `<div class="chat-message">👨🚀 <b>You:</b> ${userInput}</div>`;
-
-      loading.style.display = 'block';
-      document.getElementById('user-input').value = '';
-
-      try {
-        const path2 = `environments/production/buckets/${bucketId_2}/release_by_badge/latest/entry_by_path/content/`;
-
-        // **Example endpoint fetching from the *second* bucket (bucketId_2), assuming you want the content at the root path ("/"):**
-        const endpoint = `${baseURL}/${path2}?path=`; // Appending empty path for now, adjust if needed.
-
-
-        const response = await fetch(endpoint, {
-            method: 'GET',
-            headers: await getAuthHeader() // Assumes getAuthHeader() function exists
-        });
-
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-        const data = await response.json();
-        // **Process CCD response here. The following is placeholder:**
-        const formattedAnswer = `<pre>Unity CCD Data Response:\n${JSON.stringify(data, null, 2)}</pre>`; // Example formatting
-        chatMessages.innerHTML += `
-            <div class="chat-message">
-                🤖 <b>Data Response:</b> ${formattedAnswer}
-            </div>`;
-
-
-    } catch (error) {
-        chatMessages.innerHTML += `
-            <div class="chat-message system-message">
-                ❌ Error: ${error.message}
-            </div>`;
-    } finally {
-        loading.style.display = 'none';
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-}
-
-
-    async function getAuthHeader() {
-      // **IMPORTANT:**  Implement your authentication header retrieval logic here.
-      // This is a placeholder. You need to define how to get the auth header
-      // required for your backend/service.
-      // Example placeholder - replace with your actual auth mechanism:
-      console.warn("getAuthHeader() is a placeholder! Implement your authentication logic.");
-      return { // **Placeholder - Replace!**
-        'Authorization': 'Bearer YOUR_AUTH_TOKEN' // **Replace 'YOUR_AUTH_TOKEN'**
-      };
-    }
-
-
-    // =============================================
-    //  Event Listeners and Initialization
-    // =============================================
-    window.onload = initSolarSystem; // Initialize when window loads
-  </script>
-</body>
-</html>
+        planet.mesh.position.z = Math.sin(planet.angle) * planet
