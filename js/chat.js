@@ -1,57 +1,52 @@
-// =============================================
-//  AI Chat Functionality (Now Data Fetching)
-// =============================================
-async function sendChat() {
-  const userInput = document.getElementById('user-input').value.trim();
-  if (!userInput) return alert('🚀 Please enter a space-related question');
+// Chat System
+const API_KEY = 'AIzaSyB-qg2CY7gGfowh5ITW5PwljgMMXlNKVHg';
+let chatHistory = [];
 
-  const chatMessages = document.getElementById('chat-messages');
-  const loading = document.getElementById('loading');
+async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const message = input.value.trim();
+    if (!message) return;
 
-  // Add user message
-  chatMessages.innerHTML += `<div class="chat-message">👨🚀 <b>You:</b> ${userInput}</div>`;
+    // Add user message
+    addMessage(message, 'user');
+    input.value = '';
 
-  loading.style.display = 'block';
-  document.getElementById('user-input').value = '';
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: `You are an astronomy expert. Answer questions about the solar system. Current question: ${message}`
+                    }]
+                }]
+            })
+        });
 
-  try {
-    const baseURL = "YOUR_BASE_URL"; // **REPLACE WITH YOUR BASE URL**
-    const endpoint = `${baseURL}/environments/production/buckets/your-bucket-id/entries`; // **REPLACE 'your-bucket-id'**
-
-    const response = await fetch(endpoint, {
-        method: 'GET',
-        headers: await getAuthHeader() // Assumes getAuthHeader() function exists
-    });
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const data = await response.json();
-    // **Process CCD response here. The following is placeholder:**
-    const formattedAnswer = `<pre>CCD Data Response:\n${JSON.stringify(data, null, 2)}</pre>`; // Example formatting
-    chatMessages.innerHTML += `
-        <div class="chat-message">
-            🤖 <b>Data Response:</b> ${formattedAnswer}
-        </div>`;
-
-
-  } catch (error) {
-      chatMessages.innerHTML += `
-          <div class="chat-message system-message">
-              ❌ Error: ${error.message}
-          </div>`;
-  } finally {
-      loading.style.display = 'none';
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
+        const data = await response.json();
+        const botResponse = data.candidates[0].content.parts[0].text;
+        addMessage(botResponse, 'bot');
+    } catch (error) {
+        addMessage("Error connecting to the chat service", 'bot');
+    }
 }
 
-async function getAuthHeader() {
-  // **IMPORTANT:**  Implement your authentication header retrieval logic here.
-  // This is a placeholder. You need to define how to get the auth header
-  // required for your backend/service.
-  // Example placeholder - replace with your actual auth mechanism:
-  console.warn("getAuthHeader() is a placeholder! Implement your authentication logic.");
-  return { // **Placeholder - Replace!**
-    'Authorization': 'Bearer YOUR_AUTH_TOKEN' // **Replace 'YOUR_AUTH_TOKEN'**
-  };
+function addMessage(text, sender) {
+    const history = document.getElementById('chat-history');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    messageDiv.textContent = `${sender === 'user' ? 'You: ' : 'RA: '}${text}`;
+    history.appendChild(messageDiv);
+    history.scrollTop = history.scrollHeight;
 }
+
+// Initialize
+window.onload = initSolarSystem;
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
