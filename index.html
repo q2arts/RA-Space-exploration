@@ -150,7 +150,7 @@
             const history = document.getElementById('chat-history');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            messageDiv.textContent = `${sender === 'user' ? 'You: ' : 'AstroBot: '}${text}`;
+            messageDiv.textContent = `${sender === 'user' ? 'You: ' : 'RA: '}${text}`;
             history.appendChild(messageDiv);
             history.scrollTop = history.scrollHeight;
         }
