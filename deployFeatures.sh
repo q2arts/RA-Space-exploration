@@ -5,16 +5,16 @@ cd path/to/RA-Space-exploration
 echo '<!DOCTYPE html>...' > index.html
 
 # Create and edit styles.css
-echo 'body { ... }' > styles.css
+echo 'body { ... }' > css/styles.css
 
-# Create and edit scripts.js
-echo 'let stressLevel = 30; ...' > scripts.js
+# Create and edit js/scripts.js
+echo 'let stressLevel = 30; ...' > js/scripts.js
 
 # Add the files to the repository
-git add index.html styles.css scripts.js
+git add index.html css/styles.css js/scripts.js
 
 # Commit the changes
-git commit -m "Isolated HTML, CSS, and JavaScript into separate files"
+git commit -m "update project files"
 
 # Push to GitHub
-git push origin main
+git push origin master
