@@ -57,14 +57,20 @@
     </ul>  
   </nav>   
   </header>
-    <div id="container">
-        <div id="chat-container">
-            <div id="chat-history"></div>
-            <input type="text" id="user-input" placeholder="Ask about the solar system...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+        <h1>Stress Simulation Dashboard</h1>
+
+    <div id="stressBar">
+        <div id="stressProgress"></div>
     </div>
-<script>
+    <p>Stress Level: <span id="stressValue">30%</span></p>
+    <p>Heart Rate: <span id="bpm">80 BPM</span></p>
+
+    <button onclick="performBreathingExercise()">Breathing Exercise</button>
+    <button onclick="findOxygenTank()">Find Oxygen Tank</button>
+
+    <div id="chatMessages"></div>
+
+    <script>
         // Stress Simulation
         let stressLevel = 30;
         let stressInterval;
@@ -116,7 +122,14 @@
 
         // Start simulation when page loads
         window.onload = startStressSimulation;
-</script>
+    </script>
+    <div id="container">
+        <div id="chat-container">
+            <div id="chat-history"></div>
+            <input type="text" id="user-input" placeholder="Ask about the solar system...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
     <script>
         // Three.js Solar System
         let scene, camera, renderer;
