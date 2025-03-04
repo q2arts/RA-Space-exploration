@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <img src="img%2F1000074327-removebg-preview.png" alt="RA logo">  
-  <nav>  
-    <ul>  
-      <li><a href="home.html">Home</a></li>  
-      <li><a href="about.html">About</a></li>  
-      <li><a href="features.html">Features</a></li>  
-      <li><a href="index.html">Demo</a></li>  
-      <li><a href="contact.html">Contact</a></li>  
-    </ul>  
-  </nav>   
     <title>RA Space exploration</title>
     <style>
         #container {
@@ -55,6 +45,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+  <header>
+    <img src="img%2F1000074327-removebg-preview.png" alt="RA logo">  
+  <nav>  
+    <ul>  
+      <li><a href="home.html">Home</a></li>  
+      <li><a href="about.html">About</a></li>  
+      <li><a href="features.html">Features</a></li>  
+      <li><a href="index.html">Demo</a></li>  
+      <li><a href="contact.html">Contact</a></li>  
+    </ul>  
+  </nav>   
+  </header>
     <div id="container">
         <div id="chat-container">
             <div id="chat-history"></div>
@@ -62,7 +64,59 @@
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+<script>
+        // Stress Simulation
+        let stressLevel = 30;
+        let stressInterval;
+        
+        function startStressSimulation() {
+            stressInterval = setInterval(() => {
+                if(stressLevel < 100) {
+                    stressLevel += Math.random() * 2;
+                    updateDashboard();
+                }
+            }, 2000);
+        }
 
+        function performBreathingExercise() {
+            if(stressLevel > 20) {
+                stressLevel -= 20;
+                addChatMessage("Well done! Stress reduced through breathing exercise.");
+                updateDashboard();
+            }
+        }
+
+        function findOxygenTank() {
+            addChatMessage("Follow the green lights to emergency oxygen supply!");
+            // Would trigger visual effects in actual implementation
+        }
+
+        function updateDashboard() {
+            // Update stress display
+            document.getElementById('stressProgress').style.width = stressLevel + '%';
+            document.getElementById('stressValue').textContent = Math.round(stressLevel) + '%';
+            
+            // Update heart rate
+            document.getElementById('bpm').textContent = 
+                Math.floor(80 + (stressLevel * 0.3)) + ' BPM';
+            
+            // Trigger chatbot warnings
+            if(stressLevel > 75) {
+                addChatMessage("Warning: Critical stress levels! Focus on breathing.");
+            } else if(stressLevel > 50) {
+                addChatMessage("Stress levels rising. Recommend calming exercises.");
+            }
+        }
+
+        function addChatMessage(text) {
+            const chatDiv = document.getElementById('chatMessages');
+            chatDiv.innerHTML += `<p>> ${text}</p>`;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        // Start simulation when page loads
+        window.onload = startStressSimulation;
+</script>
     <script>
         // Three.js Solar System
         let scene, camera, renderer;
