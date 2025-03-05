@@ -12,6 +12,44 @@ body {
     margin: 0;
     padding: 20px;
 }
+/* Header Styles */
+header {
+    background: rgba(26, 31, 53, 0.95);
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    width: 180px;
+}
+
+nav ul.horizontal-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav ul.horizontal-menu li {
+    display: inline;
+}
+
+nav ul.horizontal-menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul.horizontal-menu li a:hover {
+    color: #6c5ce7;
+}
 
 .demo-container {
     max-width: 1200px;
