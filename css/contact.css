@@ -21,45 +21,33 @@ body {
     box-sizing: border-box;
 }
 
-/* Header Styles */
 header {
-    background: rgba(26, 31, 53, 0.95);
-    padding: 1rem 2rem;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(10px);
-}
+            background: rgba(26, 31, 53, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
 
-.logo {
-    width: 180px;
-}
+        .ra-logo {
+            height: 50px;
+        }
 
-nav ul.horizontal-menu {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-}
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
 
-nav ul.horizontal-menu li {
-    display: inline;
-}
-
-nav ul.horizontal-menu li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-nav ul.horizontal-menu li a:hover {
-    color: #6c5ce7;
-}
-
+        nav a:hover {
+            color: var(--quantum-purple);
+        }
 
 /* Background Animation */
 .particles {
