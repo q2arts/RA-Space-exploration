@@ -3,198 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuantumMind AI - VR Training Module</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: #0a0f24;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Header with Horizontal Menu */
-        header {
-            background: #1a1f35;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        header nav ul li a:hover {
-            color: #6c5ce7;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            display: flex;
-            gap: 30px;
-        }
-
-        .vr-scene {
-            flex: 2;
-            background: #1a1f35;
-            border-radius: 10px;
-            padding: 20px;
-            min-height: 600px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard {
-            flex: 1;
-            background: #1a1f35;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .stress-indicator {
-            background: #2a2f45;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .progress-bar {
-            height: 30px;
-            background: #334;
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress {
-            height: 100%;
-            width: 50%;
-            background: linear-gradient(90deg, #6c5ce7, #48dbfb);
-            transition: width 0.3s ease;
-        }
-
-        .chatbot {
-            background: #2a2f45;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            min-height: 150px;
-        }
-
-        button {
-            background: #6c5ce7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        button:hover {
-            background: #8577ef;
-        }
-
-        /* AR Overlay Section */
-        .ar-overlay {
-            margin-top: 20px;
-            padding: 20px;
-            background: #2a2f45;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .ar-overlay img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 8px;
-        }
-
-        .ar-overlay p {
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-
-        /* Chat System */
-        .chat-system {
-            margin-top: 20px;
-            padding: 20px;
-            background: #2a2f45;
-            border-radius: 8px;
-        }
-
-        .chat-history {
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid #444;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #1a1f35;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        .user-message {
-            background: #6c5ce7;
-            text-align: right;
-        }
-
-        .bot-message {
-            background: #48dbfb;
-            text-align: left;
-        }
-
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background: #1a1f35;
-            color: #fff;
-        }
-
-        .chat-input button {
-            padding: 10px 20px;
-        }
-    </style>
+    <title>QuantumMind AI - Mental Resilience for Space Tourism</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header with Horizontal Menu -->
+    <!-- Animated Background -->
+    <canvas class="particles" id="particles"></canvas>
+
+    <!-- Header -->
     <header>
-        <img src="img/Logo.png" alt="QuantumMind AI Logo" width="150">
+        <img src="quantummind_logo.png" alt="QuantumMind AI" class="logo">
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="features.html">Features</a></li>
-                <li><a href="#demo">Demo</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>QuantumMind AI: Your Mental Spacesuit</h1>
+            <p>AI-powered VR/AR resilience training for next-generation space tourists. Mitigate psychological stress through adaptive simulations and real-time biofeedback.</p>
+            <a href="#features" class="cta-button">Explore Technology</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛸</div>
+                <h3>VR Emergency Training</h3>
+                <p>Immersive simulations for critical scenarios like oxygen leaks and system failures</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>AI Stress Detection</h3>
+                <p>Real-time biometric monitoring with adaptive response algorithms</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨🚀</div>
+                <h3>AR Guidance System</h3>
+                <p>On-demand coping strategies overlay for critical situations</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 QuantumMind AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
