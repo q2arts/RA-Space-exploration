@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumMind AI - Demo</title>
+    <link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+    <div class="demo-container">
+        <section id="demo-video">
+            <h2>QuantumMind AI in Action</h2>
+            <iframe src="demo_video.mp4" allowfullscreen></iframe>
+            
+            <div class="code-highlight">
+                <h3>Core Simulation Logic</h3>
+                <pre><code>// AI Stress Management Algorithm
+
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class VRScenarioController : MonoBehaviour
+{
+    private QuantumMindAI ai;
+    private bool scenarioActive = true;
+
+    void Start()
+    {
+        ai = new QuantumMindAI();
+        StartCoroutine(RunScenario());
+    }
+
+    IEnumerator RunScenario()
+    {
+        while (scenarioActive)
+        {
+            float currentStress = ai.UpdateStress(0.1f);
+            DisplayStressLevel(currentStress);
+            TriggerFeedback(currentStress);
+            yield return new WaitForSeconds(1.0f); // Adjust the time interval as needed
+        }
+    }
+
+    void DisplayStressLevel(float stressLevel)
+    {
+        Debug.Log("Current Stress Level: " + stressLevel);
+        // Implement VR display of stress level here
+    }
+
+    void TriggerFeedback(float stressLevel)
+    {
+        if (stressLevel > 70)
+        {
+            // Implement feedback for high stress levels in VR scenario
+            Debug.Log("High Stress Level Detected - Triggering Feedback");
+        }
+    }
+}
+
+public class QuantumMindAI
+{
+    private float stressLevel = 30;
+    private readonly Dictionary<string, float> stressFactors = new Dictionary<string, float>
+    {
+        { "environment", 0.7f },
+        { "isolation", 0.4f },
+        { "task_load", 0.5f }
+    };
+
+    public float UpdateStress(float delta)
+    {
+        stressLevel += GetTotalStressFactors() * delta;
+        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
+        return stressLevel;
+    }
+
+    public float ApplyIntervention(float effectiveness)
+    {
+        stressLevel -= 20 * effectiveness;
+        stressLevel = Mathf.Clamp(stressLevel, 0, 100);
+        return stressLevel;
+    }
+
+    private float GetTotalStressFactors()
+    {
+        float total = 0;
+        foreach (var factor in stressFactors)
+        {
+            total += factor.Value;
+        }
+        return total;
+    }
+}
+</code></pre>
+            </div>
+        </section>
+
+        <div class="interactive-demo">
+            <div class="vr-preview">
+                <h3>VR Training Preview</h3>
+                <div id="vr-scene">
+                    <img src="vr-preview.gif" alt="VR Scene" style="width:100%">
+                </div>
+                <div class="simulation-controls">
+                    <button onclick="startScenario()">Start Scenario</button>
+                    <button onclick="resetScenario()">Reset</button>
+                </div>
+            </div>
+
+            <div class="stress-simulator">
+                <h3>Stress Simulation</h3>
+                <div class="stress-meter">
+                    <div class="progress-bar" style="height: 30px; background: #334;">
+                        <div id="stress-progress" style="width: 30%; height: 100%; 
+                             background: linear-gradient(90deg, #6c5ce7, #48dbfb);"></div>
+                    </div>
+                    <div id="stress-value" style="margin-top: 10px;">30%</div>
+                </div>
+                <div class="bio-feedback" style="margin-top: 20px;">
+                    <p>Heart Rate: <span id="heart-rate">82</span> BPM</p>
+                    <p>Oxygen Sats: <span id="oxygen">95</span>%</p>
+                </div>
+                <div class="interventions" style="margin-top: 20px;">
+                    <button onclick="applyBreathing()">Apply Breathing Exercise</button>
+                    <button onclick="findSolution()">Emergency Protocol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/demo.js"></script>
+</body>
+</html>
