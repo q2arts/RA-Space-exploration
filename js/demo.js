@@ -67,7 +67,7 @@ updateStressDisplay();
     
     // TEXTURE LOADING
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('URL_OF_YOUR_360_IMAGE', (texture) => {
+    textureLoader.load('img/quatoummindai.gif', (texture) => {
         const material = new THREE.MeshBasicMaterial({ map: texture });
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
