@@ -1,3 +1,5 @@
+<!-- Stress Simulation Script -->
+<script>
 let stressLevel = 30;
 let simulationInterval;
 const maxStress = 100;
@@ -44,12 +46,14 @@ function findSolution() {
 
 // Initialize
 updateStressDisplay();
+</script>
 
-// 3D Scene Setup
+<!-- Three.js Dependencies -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/webxr/VRButton.js"></script>
 
+<!-- 3D Scene Script -->
 <script>
     // INITIAL SETUP
     const scene = new THREE.Scene();
