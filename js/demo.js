@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Stress Simulation Script
+  // Stress Simulation Script (unchanged)
   let stressLevel = 30;
   let simulationInterval;
   const maxStress = 100;
@@ -53,77 +53,88 @@ document.addEventListener('DOMContentLoaded', function () {
   updateStressDisplay();
   
   // --- 3D Scene Script using Three.js ---
-  
-  // Initial Setup
+
+  // Scene Setup
   const scene = new THREE.Scene();
+
+  // Camera Fix: Adjust near plane and position
   const camera = new THREE.PerspectiveCamera(
-    75, window.innerWidth / window.innerHeight, 0.1, 1000
+    75, 
+    window.innerWidth / window.innerHeight, 
+    0.01, // Changed from 0.1 to 0.01
+    1000
   );
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  
-  // Renderer configuration
+  camera.position.set(0, 0, 0.001); // Position closer to center
+
+  // Renderer Fix: Add alpha channel for debugging
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true // Enable transparency
+  });
+  renderer.setClearColor(0x000000, 0); // Transparent background
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
   document.body.appendChild(renderer.domElement);
-  
-  // 360° Sphere Setup
-  const geometry = new THREE.SphereGeometry(500, 60, 40);
+
+  // Geometry Fix: Reduce complexity for better performance
+  const geometry = new THREE.SphereGeometry(500, 32, 16); // Reduced segments
   geometry.scale(-1, 1, 1); // Flip normals inward
-  
-  // Texture loading with error handling
+
+  // Texture Loading Fix: Add success logging and force update
   const textureLoader = new THREE.TextureLoader();
   textureLoader.load(
     'img/er.png',
     (texture) => {
+      console.log('Texture loaded successfully');
       const material = new THREE.MeshBasicMaterial({
         map: texture,
-        side: THREE.BackSide // Critical fix for proper sphere rendering
+        side: THREE.BackSide,
+        transparent: true
       });
       const sphere = new THREE.Mesh(geometry, material);
       scene.add(sphere);
+      needsUpdate = true; // Force render after load
     },
-    undefined, // Progress callback (optional)
+    undefined,
     (err) => {
-      console.error('Error loading texture:', err);
-      // Fallback material if texture fails to load
+      console.error('Texture error:', err);
+      // Visible fallback material
       const material = new THREE.MeshBasicMaterial({
-        color: 0x444444,
+        color: 0xFF0000, // Bright red for visibility
         side: THREE.BackSide
       });
       scene.add(new THREE.Mesh(geometry, material));
+      needsUpdate = true;
     }
   );
-  
-  // Camera position
-  camera.position.set(0, 0, 0.1);
-  
-  // VR Configuration
-  renderer.xr.enabled = true;
-  renderer.xr.setReferenceSpaceType('local');
-  document.body.appendChild(VRButton.createButton(renderer));
-  
+
+  // Debug Helpers: Add axes visualization
+  scene.add(new THREE.AxesHelper(50)); // Red=X, Green=Y, Blue=Z
+
+  // VR Configuration (Temporarily Disabled)
+  // renderer.xr.enabled = true;
+  // renderer.xr.setReferenceSpaceType('local');
+  // document.body.appendChild(VRButton.createButton(renderer));
+
   // Controls (Mouse/Touch)
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableZoom = false;
   controls.enablePan = false;
   controls.enableDamping = true;
   controls.rotateSpeed = -0.25;
-  
+
   // Window resize handler
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
-  
-  // Optimized animation loop
+
+  // Animation Loop Fix: Ensure continuous updates
   let needsUpdate = true;
   renderer.setAnimationLoop(() => {
-    if (needsUpdate || controls.isRotating) {
-      controls.update();
-      renderer.render(scene, camera);
-      needsUpdate = false;
-    }
+    controls.update();
+    renderer.render(scene, camera);
   });
 
   // Cleanup on page unload
