@@ -30,7 +30,7 @@ The proposed solution leverages state-of-the-art virtual and augmented reality t
 3. **Run the Application:**
    - Launch the VR/AR client application using the respective game engine's development environment.
    - Connect the application to the backend services (AI engine, CMS, cloud integration) as specified in the system architecture.
-![QuantumMind AI](quantummindai.gif)
+![QuantumMind AI](img/quantummindai.gif)
 
 ## License
 
