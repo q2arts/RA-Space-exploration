@@ -70,13 +70,29 @@ document.addEventListener('DOMContentLoaded', function () {
   const geometry = new THREE.SphereGeometry(500, 60, 40);
   geometry.scale(-1, 1, 1); // Flip normals inward
   
-  // Texture loading
+  // Texture loading with error handling
   const textureLoader = new THREE.TextureLoader();
-  textureLoader.load('img/er.png', (texture) => {
-    const material = new THREE.MeshBasicMaterial({ map: texture });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-  });
+  textureLoader.load(
+    'img/er.png',
+    (texture) => {
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.BackSide // Critical fix for proper sphere rendering
+      });
+      const sphere = new THREE.Mesh(geometry, material);
+      scene.add(sphere);
+    },
+    undefined, // Progress callback (optional)
+    (err) => {
+      console.error('Error loading texture:', err);
+      // Fallback material if texture fails to load
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x444444,
+        side: THREE.BackSide
+      });
+      scene.add(new THREE.Mesh(geometry, material));
+    }
+  );
   
   // Camera position
   camera.position.set(0, 0, 0.1);
@@ -100,9 +116,19 @@ document.addEventListener('DOMContentLoaded', function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
   
-  // Animation Loop
+  // Optimized animation loop
+  let needsUpdate = true;
   renderer.setAnimationLoop(() => {
-    controls.update();
-    renderer.render(scene, camera);
+    if (needsUpdate || controls.isRotating) {
+      controls.update();
+      renderer.render(scene, camera);
+      needsUpdate = false;
+    }
+  });
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    clearInterval(simulationInterval);
+    renderer.dispose();
   });
 });
