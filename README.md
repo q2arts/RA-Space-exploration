@@ -1,6 +1,7 @@
 # QuantumMind AI project
 **RA Space exploration training system:**
 ![RA Logo](img/Logo.png)
+
  **AI-Powered VR/AR Training and Simulation System for Space Tourists**
 
 ## About the Project
