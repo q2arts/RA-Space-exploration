@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuantumMind AI - Demo</title>
     <link rel="stylesheet" href="css/demo.css">
+<!-- Three.js Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/webxr/VRButton.js"></script>
+  <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
 <!-- Header -->
@@ -135,8 +140,10 @@ public class QuantumMindAI
                     <p>Oxygen Sats: <span id="oxygen">95</span>%</p>
                 </div>
                 <div class="interventions" style="margin-top: 20px;">
+<button onclick="startScenario()">Start</button>
+<button onclick="resetScenario()">Reset</button>
                     <button onclick="applyBreathing()">Apply Breathing Exercise</button>
-                    <button onclick="findSolution()">Emergency Protocol</button>
+                    <button onclick="findSolution()">Find Solution</button>
                 </div>
             </div>
         </div>
