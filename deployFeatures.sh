@@ -2,16 +2,16 @@
 cd path/to/RA-Space-exploration
 
 # Create and edit index.html
-echo '<!DOCTYPE html>...' > features.html
+echo '<!DOCTYPE html>...' > index.html
 
-# Create and edit styles.css
-echo 'body { ... }' > css/styles.css
+# Create and edit index.css
+echo 'body { ... }' > css/index.css
 
-# Create and edit js/features.js
-echo 'let stressLevel = 30; ...' > js/features.js
+# Create and edit js/index.js
+echo 'let stressLevel = 30; ...' > js/index.js
 
 # Add the files to the repository
-git add features.html css/styles.css js/features.js
+git add index.html css/index.css js/index.js
 
 # Commit the changes
 git commit -m "update project files"
