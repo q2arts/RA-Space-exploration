@@ -142,8 +142,10 @@ public class QuantumMindAI
 <button onclick="resetScenario()">Reset</button>
                     <button onclick="applyBreathing()">Apply Breathing Exercise</button>
                     <button onclick="findSolution()">Find Solution</button>
+<!-- Canvas element for VR rendering -->
+  <canvas id="vrCanvas"></canvas>
 <!-- Include the VRtraining.js script -->
-  <script src="VRtraining.js"></script>
+  <script src="js/VRtraining.js"></script>
   
   <!-- Connection Code -->
   <script>
@@ -155,7 +157,7 @@ public class QuantumMindAI
           serverUrl: "http://localhost:8001"
         });
       } else {
-        console.error("VRtraining.js is not loaded or does not have a connect method.");
+        console.error("js/VRtraining.js is not loaded or does not have a connect method.");
       }
     }
 
