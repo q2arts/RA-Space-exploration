@@ -142,6 +142,28 @@ public class QuantumMindAI
 <button onclick="resetScenario()">Reset</button>
                     <button onclick="applyBreathing()">Apply Breathing Exercise</button>
                     <button onclick="findSolution()">Find Solution</button>
+<!-- Include the VRtraining.js script -->
+  <script src="VRtraining.js"></script>
+  
+  <!-- Connection Code -->
+  <script>
+    // Function to start the VR training scenario
+    function startVRTraining() {
+      if (typeof VRtraining !== "undefined" && typeof VRtraining.connect === "function") {
+        VRtraining.connect({
+          canvas: document.getElementById("vrCanvas"),
+          serverUrl: "http://localhost:8001"
+        });
+      } else {
+        console.error("VRtraining.js is not loaded or does not have a connect method.");
+      }
+    }
+
+    // Add event listener to trigger the connection when the "Find Solution" button is clicked
+    window.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("findSolutionBtn").addEventListener("click", startVRTraining);
+    });
+  </script>
                 </div>
             </div>
         </div>
