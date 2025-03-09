@@ -49,58 +49,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   };
   
-  // Initialize simulation display
   updateStressDisplay();
-  
-  // --- 3D Scene Script using Three.js ---
 
-  // Scene Setup
+  // --- Optimized 3D Scene Implementation ---
   const scene = new THREE.Scene();
-
-  // Camera Fix: Adjust near plane and position
+  
+  // Precision Camera Setup
   const camera = new THREE.PerspectiveCamera(
-    75, 
-    window.innerWidth / window.innerHeight, 
-    0.01, // Changed from 0.1 to 0.01
+    75,
+    window.innerWidth / window.innerHeight,
+    0.01,
     1000
   );
-  camera.position.set(0, 0, 0.001); // Position closer to center
+  camera.position.set(0, 0, 0.001);
 
-  // Renderer Fix: Add alpha channel for debugging
+  // Transparent Renderer Configuration
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha: true // Enable transparency
+    alpha: true
   });
-  renderer.setClearColor(0x000000, 0); // Transparent background
+  renderer.setClearColor(0x000000, 0);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
   document.body.appendChild(renderer.domElement);
 
-  // Geometry Fix: Reduce complexity for better performance
-  const geometry = new THREE.SphereGeometry(500, 32, 16); // Reduced segments
-  geometry.scale(-1, 1, 1); // Flip normals inward
+  // Optimized Sphere Geometry
+  const geometry = new THREE.SphereGeometry(500, 32, 16);
+  geometry.scale(-1, 1, 1);
 
-  // Texture Loading Fix: Add success logging and force update
+  // Robust Texture Loading System
   const textureLoader = new THREE.TextureLoader();
   textureLoader.load(
     'img/er.png',
     (texture) => {
-      console.log('Texture loaded successfully');
+      console.log('360° Environment Loaded');
       const material = new THREE.MeshBasicMaterial({
         map: texture,
         side: THREE.BackSide,
         transparent: true
       });
-      const sphere = new THREE.Mesh(geometry, material);
-      scene.add(sphere);
-      needsUpdate = true; // Force render after load
+      scene.add(new THREE.Mesh(geometry, material));
+      needsUpdate = true;
     },
     undefined,
     (err) => {
-      console.error('Texture error:', err);
-      // Visible fallback material
+      console.error('Texture Error:', err);
       const material = new THREE.MeshBasicMaterial({
-        color: 0xFF0000, // Bright red for visibility
+        color: 0x404040,
         side: THREE.BackSide
       });
       scene.add(new THREE.Mesh(geometry, material));
@@ -108,38 +103,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   );
 
-  // Debug Helpers: Add axes visualization
-  scene.add(new THREE.AxesHelper(50)); // Red=X, Green=Y, Blue=Z
-
-  // VR Configuration (Temporarily Disabled)
-  // renderer.xr.enabled = true;
-  // renderer.xr.setReferenceSpaceType('local');
-  // document.body.appendChild(VRButton.createButton(renderer));
-
-  // Controls (Mouse/Touch)
+  // Interactive Controls
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableZoom = false;
-  controls.enablePan = false;
   controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
   controls.rotateSpeed = -0.25;
 
-  // Window resize handler
+  // Adaptive Rendering System
+  let needsUpdate = true;
+  renderer.setAnimationLoop(() => {
+    if (needsUpdate || controls.isRotating) {
+      controls.update();
+      renderer.render(scene, camera);
+      needsUpdate = false;
+    }
+  });
+
+  // Responsive Layout Handling
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    needsUpdate = true;
   });
 
-  // Animation Loop Fix: Ensure continuous updates
-  let needsUpdate = true;
-  renderer.setAnimationLoop(() => {
-    controls.update();
-    renderer.render(scene, camera);
-  });
-
-  // Cleanup on page unload
+  // Resource Cleanup
   window.addEventListener('beforeunload', () => {
     clearInterval(simulationInterval);
     renderer.dispose();
+    controls.dispose();
+    textureLoader = null;
   });
 });
