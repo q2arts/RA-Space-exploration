@@ -1,5 +1,5 @@
 # AI-Powered VR/AR Training and Simulation System for Space Tourists
-![Solar system](img/Facebook_creation_2942781692558266.jpeg)
+![Solar system](img/ARoverlay.gif)
 ## Overview
 
 The proposed solution leverages state-of-the-art virtual and augmented reality technologies combined with AI to create a fully immersive training environment. This system simulates every phase of the spaceflight experience—from liftoff and orbital maneuvers to spacewalks and emergency protocols. It is designed not only to familiarize space tourists with safety measures but also to provide them with a realistic understanding of the dynamics involved in space travel.
