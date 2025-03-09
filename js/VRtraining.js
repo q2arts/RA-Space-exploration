@@ -8,8 +8,14 @@ import { open } from 'open';
 class TrainingHandler extends SimpleHTTPRequestHandler {
  // Override the do_GET method to handle custom requests.
  do_GET(req, res) {
-   // Custom handling can go here, or just use the parent class behavior.
-   return super.do_GET(req, res);
+   // Check if the requested file is 'demo.html'.
+   if (req.url === '/demo.html') {
+     // Serve the 'demo.html' file.
+     this.sendFile(req, res, 'demo.html');
+   } else {
+     // Use the parent class behavior for other requests.
+     super.do_GET(req, res);
+   }
  }
 }
 
@@ -23,5 +29,5 @@ server.listen(port);
 // Print a message to the console indicating that the server is running.
 console.log(`Serving VR training at http://localhost:${port}`);
 
-// Open a new tab in the default browser to access the training page.
+// Open a new tab in the default browser to access the 'demo.html' page.
 open(`http://localhost:${port}/demo.html`);
