@@ -1,33 +1,58 @@
-// Import the necessary modules.
-import http from 'http';
-import { SimpleHTTPRequestHandler } from 'http';
-import { TCPServer } from 'net';
-import { open } from 'open';
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const open = require('open');
 
-// Define the TrainingHandler class.
-class TrainingHandler extends SimpleHTTPRequestHandler {
- // Override the do_GET method to handle custom requests.
- do_GET(req, res) {
-   // Check if the requested file is 'demo.html'.
-   if (req.url === '/demo.html') {
-     // Serve the 'demo.html' file.
-     this.sendFile(req, res, 'demo.html');
-   } else {
-     // Use the parent class behavior for other requests.
-     super.do_GET(req, res);
-   }
- }
-}
+// Define TrainingHandler equivalent functionality
+const requestHandler = (req, res) => {
+    let filePath = '.' + req.url;
+    if (filePath === './') {
+        filePath = './demo.html';
+    }
 
-// Define the port to use for the server.
-const port = 8001;
+    const extname = path.extname(filePath);
+    let contentType = 'text/html';
+    switch (extname) {
+        case '.js':
+            contentType = 'text/javascript';
+            break;
+        case '.css':
+            contentType = 'text/css';
+            break;
+        case '.png':
+            contentType = 'image/png';
+            break;
+    }
 
-// Create the server and start listening on the specified port.
-const server = http.createServer(TrainingHandler);
-server.listen(port);
+    fs.readFile(filePath, (err, content) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                res.writeHead(404);
+                res.end('File not found');
+            } else {
+                res.writeHead(500);
+                res.end('Server error');
+            }
+        } else {
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.end(content, 'utf-8');
+        }
+    });
+};
 
-// Print a message to the console indicating that the server is running.
-console.log(`Serving VR training at http://localhost:${port}`);
+// Create and start server
+const server = http.createServer(requestHandler);
+const PORT = 8001;
 
-// Open a new tab in the default browser to access the 'demo.html' page.
-open(`http://localhost:${port}/demo.html`);
+server.listen(PORT, (err) => {
+    if (err) {
+        return console.error('Error starting server:', err);
+    }
+    
+    console.log(`Serving VR training at http://localhost:${PORT}`);
+    
+    // Open browser tab
+    open(`http://localhost:${PORT}/demo.html`).catch(err => {
+        console.error('Error opening browser:', err);
+    });
+});
